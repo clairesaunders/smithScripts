@@ -1,0 +1,74 @@
+<?xml version="1.0" ?> 
+
+<dgsreduction>
+  <!-- DEFAULTS section -->
+  <defaults
+    instrument="ARCS" 
+    filterbadpulses="True"
+    save="summary"
+   />
+
+
+
+<!-- CALIBRATION AND MASKING SECTION -->
+
+
+      <!-- Standard ARCS vanadium calibration measurement is
+           at least 2 Coulombs measurement using the standard vanadium
+           cylindrical sample with no Fermi chopper in the beam and T-Zero chopper
+           set to 300 meV, 150 Hz. Note that if processedfilename exists, it will be read and 
+           no other processing is done (e.g. its mask will be used for all reductions).
+      -->
+  <calibration processedfilename="van138487.nxs" units="wavelength" normalizedcalibration="True">
+    <vanruns>138487</vanruns> 
+    <vanmin>0.35</vanmin>
+    <vanmax>0.75</vanmax>
+  
+      <!-- The ends of LPSD (linear position sensitive detector) tubes have much lower sensitivity
+            than the middle portion and need to be masked.  For the short packs at ARCS (70-71), 
+	    mask a few extra pixels since the pixel size is smaller.
+      -->
+    <mask algorithm="BankTubePixel" pixel="1-7"/>
+    <mask algorithm="BankTubePixel" pixel="122-128"/>
+    <mask algorithm="BankTubePixel" bank="71" pixel="1-14"/>
+    <mask algorithm="BankTubePixel" bank="71" pixel="114-128"/>
+    <mask algorithm="BankTubePixel" bank="70" pixel="1-12"/>
+    <mask algorithm="BankTubePixel" bank="70" pixel="117-128"/>
+
+      <!--  Can set a minimum value of scattering angle below which all data will be masked.
+            This is used when the beam divergence can spread onto the detector at low
+            scattering angles.
+      -->
+    <mask algorithm="angle" twothetamax="2.5"/>
+
+      <!--  This is the portion where one chooses which other banks, tubes and pixels need to be masked for
+the measurements reduced with this file. 
+Ask local contact if additional detectors need to be masked.
+
+    <mask algorithm="BankTubePixel" bank="????" tube="????" pixel="?????"/> -->
+
+
+      <!--  Standard calls for masking routines that will be evaluated when the vanadium file
+            is processed.
+      -->
+    <mask algorithm="FindDetectorsOutsideLimits" LowThreshold="0.1" />
+    <mask algorithm="MedianDetectorTest" LevelsUp="1" CorrectForSolidAngle="1" LowThreshold="0.5" HighThreshold="1.5" ExcludeZeroesFromMedian="1"/>
+
+  </calibration>
+
+<!-- END OF CALIBRATION SECTION -->
+
+<!-- DATA SECTION-->
+
+<!--See guide for keyword definitions -->
+
+<!-- Example powder Ei = 700 meV (nominal, uses specific Ei and t0), combine 5 runs into a single file -->
+<scan runs="150445" save='nxspe, nxs, summary' friendlyname="Ge_7K_step" efixed='50' emin="-45" emax="45" ebin="0.5" logvalue='BL18:SE:SampleTemp' logvaluemin="400" logvaluemax="500" logvaluestep='7' friendlynamelogs='BL18:SE:SampleTemp' scantype='sweep'/>
+
+<scan runs="150503" save='nxspe, nxs, summary' friendlyname="bgd_7K_step" efixed='50' emin="-45" emax="45" ebin="0.5" logvalue='BL18:SE:SampleTemp' logvaluemin="400" logvaluemax="500" logvaluestep='7' friendlynamelogs='BL18:SE:SampleTemp' scantype='sweep'/>
+<!--Example single crystal Ei=100 meV, individual reduction for a series of rotation angles 
+<scan runs="26198-26298" save='nxspe,summary' friendlyname="sw100_5k" efixed='100' emin = "-20" emax="99" ebin="0.5" goniometermotor='CCR12Rot' grouping='2X1' friendlynamelogs='CCR12Rot' scantype='step'/>   -->
+
+
+</dgsreduction>
+
