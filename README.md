@@ -8,10 +8,10 @@ It imports the dgsreductionmantid script and runs the script for each of the new
 # How to run
 
 Download all the contents of this repository into one directory and run auto.py. 
-If you do not with to run the dgsreductionmantid script, as this takes a long time, and simply want to view the output xml files, comment out the last for-loop in auto.py.
+If you do not wish to run the dgsreductionmantid script, as this takes a long time, and simply want to view the output xml files, comment out the last for-loop in auto.py.
 There may be some further dependecies needed for the dgsreductionmantid script to work. 
 
 # Robustness
 
-The script has been optimized to be as robust as I could make it. There is very little hardcoding. The csv file can be replaced with any other melting csv file. The template xml can be replaced. If future requirements need to be met, like including more than just the ramping runs, these requirements can be easily met with changes to <5 lines of code. Because auto.py is robust, it can be easily modified to meet further requirements. 
+The script has been optimized to be as robust as I could make it. There is very little hardcoding. The csv file can be replaced with any other melting csv file. The template xml can be replaced. If future requirements need to be met, like including more than just the ramping runs, these requirements can be easily met with changes to < 5 lines of code. Because auto.py is robust, it can be easily modified to meet further requirements. 
 
